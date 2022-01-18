@@ -30,11 +30,18 @@ class ViewModelVC(application: Application) : AndroidViewModel(application) {
         return VCList
     }
 
-    fun getVaccinationCenterData() {
+    fun getVCDataFromDB(): MutableLiveData<List<Data>> {
+        CoroutineScope(Dispatchers.IO).launch {
+            VCList.postValue(db.vaccinavionCenterDTO().getAll())
+        }
+        return VCList
+    }
 
+    fun getVaccinationCenterData() {
         CoroutineScope(Dispatchers.IO).launch {
             db.vaccinavionCenterDTO().deleteAll()
         }
+
         for(i: Int in 1..10){
             retrofit.getVaccinationCenter(i, perPage, key).enqueue(object : Callback<VaccinationCenterDTO> {
                 override fun onResponse(
@@ -44,10 +51,8 @@ class ViewModelVC(application: Application) : AndroidViewModel(application) {
                     CoroutineScope(Dispatchers.IO).launch {
                         for(j: Int in 0..9) {
                             db.vaccinavionCenterDTO().insertData(response.body()!!.data[j])
-                          
                         }
                         if (i*perPage==totalDataCount){
-                            Log.e("갯수", (i*perPage).toString())
                             VCList.postValue(db.vaccinavionCenterDTO().getAll())
                         }
                     }

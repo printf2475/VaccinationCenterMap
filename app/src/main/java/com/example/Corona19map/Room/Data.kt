@@ -22,4 +22,8 @@ data class Data(
 ){
     @PrimaryKey(autoGenerate = true)
     var dataId: Int = 0
+
+    override fun toString(): String {
+        return "주소 : ${this.address} ${this.facilityName}\n전화번호 : ${this.phoneNumber}\n"
+    }
 }

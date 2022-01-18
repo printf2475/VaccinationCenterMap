@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.Corona19map">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,14 +12,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Korona19Map">
         <activity
-            android:name="com.example.Corona19map.MainActivity"
-            android:exported="true">
+            android:name=".SplashActivity"
+            android:exported="true"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"/>
+
+
+        <meta-data
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="1sefg3dtp2" />
     </application>
 
 </manifest>
