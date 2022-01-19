@@ -1,10 +1,10 @@
-package com.example.Corona19map.Room
+package com.example.centerMap.room
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class Data(
+data class VaccinationCenterData(
     val address: String,
     val centerName: String,
     val centerType: String,

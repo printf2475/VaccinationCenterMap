@@ -1,4 +1,4 @@
-package com.example.Corona19map
+package com.example.centerMap
 
 import org.junit.Test
 

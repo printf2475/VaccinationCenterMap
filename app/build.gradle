@@ -3,12 +3,12 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
 }
-
+apply plugin: 'kotlin-kapt'
 android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.example.Corona19map"
+        applicationId "com.example.centerMap"
         minSdk 21
         targetSdk 31
         versionCode 1
@@ -19,10 +19,9 @@ android {
 
     buildFeatures {
         viewBinding true
+        dataBinding true
     }
-    dataBinding {
-        enabled = true
-    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -55,10 +54,11 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-scalars:$converterVersion"
     //Room
 
-    def roomVersion = '2.2.5'
+    def roomVersion = '2.4.0'
     implementation "androidx.room:room-runtime:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
     implementation "androidx.room:room-ktx:$roomVersion"
+
     
     // 네이버 지도 SDK
     implementation 'com.naver.maps:map-sdk:3.12.0'

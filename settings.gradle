@@ -9,5 +9,5 @@ dependencyResolutionManagement {
         }
     }
 }
-rootProject.name = "Corona19Map"
+rootProject.name = "centerMap"
 include ':app'

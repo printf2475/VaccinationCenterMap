@@ -1,13 +1,13 @@
-package com.example.Corona19map.Room
+package com.example.centerMap.room
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Data::class], version = 1)
+@Database(entities = [VaccinationCenterData::class], version = 1)
 abstract class DataBaseVC : RoomDatabase() {
-    abstract fun vaccinavionCenterDTO() : VaccinavionCenterDTO
+    abstract fun vaccinavionCenterDTO() : VaccinationCenterDAO
 
 
     companion object {
@@ -24,7 +24,8 @@ abstract class DataBaseVC : RoomDatabase() {
                     context.applicationContext,
                     DataBaseVC::class.java,
                     "ViccinavionDB"
-                ).build()
+                ).allowMainThreadQueries()
+                    .build()
                 INSTANCE = instance
                 instance
             }
