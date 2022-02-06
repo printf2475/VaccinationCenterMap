@@ -1,8 +1,9 @@
-package com.example.centerMap.room
+package com.example.centerMap.data.room
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import com.example.centerMap.data.retrofit.dto.VaccinationCenterData
 
 @Dao
 interface VaccinationCenterDAO {

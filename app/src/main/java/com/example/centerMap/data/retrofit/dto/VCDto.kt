@@ -1,8 +1,6 @@
-package com.example.centerMap
+package com.example.centerMap.data.retrofit.dto
 
-import com.example.centerMap.room.VaccinationCenterData
-
-data class VCDAO(
+data class VCDto(
     val currentCount: Int,
     val `data`: List<VaccinationCenterData>,
     val matchCount: Int,

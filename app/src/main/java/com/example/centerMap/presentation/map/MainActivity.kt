@@ -1,11 +1,11 @@
-package com.example.centerMap
+package com.example.centerMap.presentation.map
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.ViewModelProvider
-import com.example.centerMap.room.DataBaseVC
-import com.example.centerMap.room.VaccinationCenterData
+import com.example.centerMap.R
+import com.example.centerMap.data.retrofit.dto.VaccinationCenterData
 import com.example.centerMap.databinding.ActivityMainBinding
 
 import com.naver.maps.map.NaverMapSdk.NaverCloudPlatformClient
@@ -16,26 +16,23 @@ import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.Overlay
 import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.util.MarkerIcons
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var viewModel : ViewModelVC
-    private val CLIENT_ID = "1sefg3dtp2"
-    private val CENTERTYPE1 = "지역"
-    private val CENTERTYPE2 = "중앙/권역"
+    private val viewModel : ViewModelVC by viewModels()
+
+    companion object{
+        const val CLIENT_ID = "1sefg3dtp2"
+        const val CENTERTYPE1 = "지역"
+        const val CENTERTYPE2 = "중앙/권역"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        viewModel = ViewModelProvider(
-            this,
-            ViewModelFactory(
-                VCRepository(DataBaseVC.getDatabase(this))
-            )
-        ).get(ViewModelVC::class.java)
 
         initNaverMap()
     }

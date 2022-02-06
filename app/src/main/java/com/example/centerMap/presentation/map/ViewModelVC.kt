@@ -1,13 +1,19 @@
-package com.example.centerMap
+package com.example.centerMap.presentation.map
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.example.centerMap.room.VaccinationCenterData
+import com.example.centerMap.data.retrofit.dto.VaccinationCenterData
+import com.example.centerMap.domain.use_case.UseCases
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
+import javax.inject.Inject
 import kotlin.concurrent.thread
 
-
-class ViewModelVC(private val repository: VCRepository) :
+@HiltViewModel
+class ViewModelVC @Inject constructor(
+    private val savedStateHandle: SavedStateHandle,
+    private val useCases: UseCases) :
     ViewModel() {
     private var isFinished = false
     private var count = 0
@@ -27,11 +33,11 @@ class ViewModelVC(private val repository: VCRepository) :
 
             isFinished = false
 
-            if (repository.getAll().size <= 100) {
+            if (useCases.getAllData().size <= 100) {
                 notFinishedGetData()
             }
 
-            if (repository.getAll().size > 100) {
+            if (useCases.getAllData().size > 100) {
                 finishedGetData()
 
             }
@@ -60,7 +66,7 @@ class ViewModelVC(private val repository: VCRepository) :
 
     private fun notFinishedGetData() {
         while (!isFinished) {
-            if (repository.getAll().size <= 100) {
+            if (useCases.getAllData().size <= 100) {
                 while (!isFinished) {
                     progressCount.postValue(count++)
                     if (progressCount.value!! >= 100) {
@@ -78,12 +84,12 @@ class ViewModelVC(private val repository: VCRepository) :
 
     fun getVCDataFromDB(): MutableLiveData<List<VaccinationCenterData>> {
         CoroutineScope(Dispatchers.IO).launch {
-            VCList.postValue(repository.getAll())
+            VCList.postValue(useCases.getAllData())
         }
         return VCList
     }
 
     fun getVaccinationCenterData() {
-        repository.getVCData()
+
     }
 }

@@ -4,7 +4,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.centerMap.ViewModelVC" />
+            type="com.example.centerMap.presentation.map.ViewModelVC" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

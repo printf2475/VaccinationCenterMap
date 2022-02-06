@@ -1,25 +1,25 @@
-package com.example.centerMap
+package com.example.centerMap.presentation.splash
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
-import com.example.centerMap.room.DataBaseVC
+import com.example.centerMap.R
+import com.example.centerMap.presentation.map.ViewModelVC
 import com.example.centerMap.databinding.ActivitySplashBinding
+import com.example.centerMap.presentation.map.MainActivity
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
+    private val viewModel: ViewModelVC by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = DataBindingUtil.setContentView<ActivitySplashBinding>(this, R.layout.activity_splash)
+        val binding = DataBindingUtil.setContentView<ActivitySplashBinding>(this,
+            R.layout.activity_splash
+        )
 
-        val viewModel = ViewModelProvider(
-            this,
-            ViewModelFactory(
-                VCRepository(DataBaseVC.getDatabase(this))
-            )
-        ).get(ViewModelVC::class.java)
 
         binding.lifecycleOwner = this@SplashActivity
         binding.viewModel = viewModel
