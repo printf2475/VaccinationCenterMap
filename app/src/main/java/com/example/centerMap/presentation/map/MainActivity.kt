@@ -2,11 +2,13 @@ package com.example.centerMap.presentation.map
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import com.example.centerMap.R
 import com.example.centerMap.data.retrofit.dto.VaccinationCenterData
 import com.example.centerMap.databinding.ActivityMainBinding
+import com.example.centerMap.domain.model.VCData
 
 import com.naver.maps.map.NaverMapSdk.NaverCloudPlatformClient
 import com.naver.maps.geometry.LatLng
@@ -22,6 +24,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityMainBinding
     private val viewModel : ViewModelVC by viewModels()
+
+    private val markerList : MutableList<Marker> = mutableListOf()
 
     companion object{
         const val CLIENT_ID = "1sefg3dtp2"
@@ -51,7 +55,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(naverMap: NaverMap) {
        viewModel.getVCDataFromDB().observe(this){
            val vcDataList = it
-
            vcDataList.forEach {
                initMarker(it, naverMap, vcDataList)
            }
@@ -59,11 +62,11 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun initMarker(
-        it: VaccinationCenterData,
+        it: VCData,
         naverMap: NaverMap,
-        vcDataList: List<VaccinationCenterData>
+        vcDataList: List<VCData>
     ) {
-        var markerList : MutableList<Marker> = mutableListOf()
+
         val data = it
         val marker = Marker()
         marker.position = LatLng(data.lat.toDouble(), data.lng.toDouble())
@@ -83,10 +86,10 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun initAlertDialog(
         markerList: MutableList<Marker>,
         clickedMarker: Overlay,
-        vcDataList: List<VaccinationCenterData>
+        vcDataList: List<VCData>
     ) {
         for (i in markerList.indices){
-            if (markerList[i]===clickedMarker){
+            if (markerList[i].equals(clickedMarker)){
                 val builder: AlertDialog.Builder = AlertDialog.Builder(this)
 
                 builder.setTitle(vcDataList[i].centerName).setMessage(vcDataList[i].toString())
@@ -98,7 +101,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    private fun makeColor(it : VaccinationCenterData): OverlayImage {
+    private fun makeColor(it : VCData): OverlayImage {
         if (it.centerType==CENTERTYPE1){
           return MarkerIcons.RED
         }

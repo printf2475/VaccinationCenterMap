@@ -1,14 +1,14 @@
 package com.example.centerMap.domain.repository
 
 import com.example.centerMap.data.retrofit.dto.VCDto
-import com.example.centerMap.data.retrofit.dto.VaccinationCenterData
+import com.example.centerMap.domain.model.VCData
 
 interface Repository {
-    fun insert(vaccinationCenterData: VaccinationCenterData)
+    fun insert(vcData: VCData)
 
     fun deleteAll()
 
-    fun getAll(): List<VaccinationCenterData>
+    fun getAll(): List<VCData>
 
     suspend fun getVCData(page: Int): VCDto
 }

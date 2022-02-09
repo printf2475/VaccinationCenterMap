@@ -7,6 +7,7 @@ import com.example.centerMap.data.retrofit.RetrofitVC
 import com.example.centerMap.data.room.DataBaseVC
 import com.example.centerMap.domain.repository.Repository
 import com.example.centerMap.domain.use_case.*
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,7 +24,9 @@ object AppModule {
     @Singleton
     fun provideRetrofit(): RetrofitVC{
         return Retrofit.Builder().baseUrl(RetrofitVC.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create()).build()
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
+            .build()
             .create(RetrofitVC::class.java)
     }
 

@@ -33,7 +33,7 @@ class SplashActivity : AppCompatActivity() {
             }
         }
         viewModel.getVaccinationCenterData()
-        viewModel.startProgress()
+//        viewModel.startProgress()
 
     }
 }

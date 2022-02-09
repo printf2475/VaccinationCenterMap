@@ -1,12 +1,10 @@
 package com.example.centerMap.data.room
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.centerMap.data.retrofit.dto.VaccinationCenterData
+import com.example.centerMap.domain.model.VCData
 
-@Database(entities = [VaccinationCenterData::class], version = 1)
+@Database(entities = [VCData::class], version = 2)
 abstract class DataBaseVC : RoomDatabase() {
     abstract fun vaccinavionCenterDTO() : VaccinationCenterDAO
 
